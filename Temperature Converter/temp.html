@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>Temperature Converter</title>
+        <link rel="stylesheet" href="tempcss.css"/>
+        <script src="https://kit.fontawesome.com/f77c95ac9f.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+      <div class="tempcal">
+        <h1 class="tempname">Temeperature Converter <i class="fa-solid fa-temperature-full"></i></h1>
+        <form action="" name="">
+          <div class="all_inputs">
+            <div class="input_value">
+              <h3>Enter Value: <input type="number" class="value" id="valueid" required></h3>
+            </div>
+
+            <div class="convert_from">
+              <h3 class="tempname">From:
+              <select name="input" id="input">
+                <option value="celsius">Celsius</option>
+                <option value="fahrenheit">Fahrenheit</option>
+                <option value="kelvin">Kelvin</option>
+              </select>
+              </h3>
+            </div>
+
+            <div class="convert_to">
+              <h3 class="tempname">To:
+              <select name="output" id="output">
+                <option value="celsius">Celsius </option>
+                <option value="fahrenheit">Fahrenheit</option>
+                <option value="kelvin">Kelvin</option>
+              </select>
+              </h3>
+            </div>
+          </div>
+
+          <button type="button" id="clear" class="btn" onclick="reset()">Clear</button><br>
+          <button type="button" id="convert" class="btn" onclick="convertTemp()">Convert</button>
+
+          <div class="result">
+            <h3 class="tempname">Answer:
+            <input type="text" value="" id="result">
+            </h3>
+          </div>
+        </form>
+      </div>
+
+      <script>
+        function convertTemp(){
+          let val = document.getElementById("valueid");
+          let result = document.getElementById("result");
+          let input = document.getElementById("input");
+          let output = document.getElementById("output");
+
+          val.addEventListener("keyup", convertTemp);
+          input.addEventListener("change", convertTemp);
+          output.addEventListener("change", convertTemp);
+
+          let inputValue=input.value;
+          let outputValue= output.value;
+
+          //Celsius
+          if(inputValue === "celsius" && outputValue === "fahrenheit"){
+            result.value= Number((val.value)* 9/5) + 32;
+          }
+          else if(inputValue === "celsius" && outputValue === "kelvin"){
+            result.value= Number(val.value) + 273.15;
+          }
+          else if(inputValue === "celsius" && outputValue === "celsius"){
+            result.value=val.value;
+          }
+
+          //Fahrenheit
+          if(inputValue === "fahrenheit" && outputValue === "celsius"){
+            result.value=Number((val.value-32)*5) / 9;
+          }
+          else if(inputValue === "fahrenheit" && outputValue === "kelvin"){
+            result.value=Number((val.value-32)*5 / 9)+ 273.15;
+          }
+          else if(inputValue === "fahrenheit" && outputValue === "fahrenheit"){
+            result.value=val.value
+          }
+
+          //Kelvin
+          if(inputValue=="kelvin" && outputValue=="celsius"){
+            result.value=Number(val.value)-273.15;
+          }
+          else if(inputValue=="kelvin" && outputValue=="fahrenheit"){
+            result.value=Number((val.value=273.15)*9/5)+32;
+          }
+          else if(inputValue=="kelvin" && outputValue=="kelvin"){
+            result.value=val.value
+          }
+        }
+
+        function reset(){
+          convertTemp();
+        }
+      </script>
+    </body>
+    </html>
